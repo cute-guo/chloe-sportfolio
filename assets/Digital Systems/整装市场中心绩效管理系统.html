@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)https://cute-guo.github.io/donpengpoints/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>整装市场中心绩效管理系统</title>
+  <link rel="stylesheet" href="./整装市场中心绩效管理系统_files/styles.css">
+  <link rel="stylesheet" href="./整装市场中心绩效管理系统_files/lucide.min.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- 侧边栏遮罩 -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- 侧边栏 -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="bar-chart-3" class="lucide lucide-bar-chart-3"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+        </div>
+        <div>
+          <div class="sidebar-title">绩效管理系统</div>
+          <div class="sidebar-subtitle">整装市场中心</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">绩效项目</div>
+        <div id="navList">
+      <div class="nav-item active" onclick="switchProject(&#39;P001&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="target" class="lucide lucide-target nav-item-icon"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">355目标</div>
+          <div class="nav-item-code">355线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P002&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="award" class="lucide lucide-award nav-item-icon"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">N50目标</div>
+          <div class="nav-item-code">N50线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P003&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="map" class="lucide lucide-map nav-item-icon"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" x2="9" y1="3" y2="18"></line><line x1="15" x2="15" y1="6" y2="21"></line></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">差距城市目标</div>
+          <div class="nav-item-code">差距线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P004&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="lucide lucide-zap nav-item-icon"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">高质抢量活动</div>
+          <div class="nav-item-code">活动线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P005&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="building" class="lucide lucide-building nav-item-icon"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">头部开拓</div>
+          <div class="nav-item-code">头部线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P006&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home nav-item-icon"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">头部网点开拓</div>
+          <div class="nav-item-code">网点线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P007&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users nav-item-icon"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">星链设计师活动</div>
+          <div class="nav-item-code">设计线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P008&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="package" class="lucide lucide-package nav-item-icon"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">新品任务</div>
+          <div class="nav-item-code">新品线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    
+      <div class="nav-item " onclick="switchProject(&#39;P009&#39;)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="globe" class="lucide lucide-globe nav-item-icon"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+        <div class="nav-item-content">
+          <div class="nav-item-name">总对总活动</div>
+          <div class="nav-item-code">总对总线</div>
+        </div>
+        <div class="nav-item-status danger"></div>
+      </div>
+    </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar">管</div>
+          <div class="user-details">
+            <div class="user-name">管理员</div>
+            <div class="user-role">绩效管理员</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 顶部栏 -->
+      <header class="header">
+        <div class="header-left">
+          <div class="menu-toggle" id="menuToggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="menu" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+          </div>
+          <div class="breadcrumb">
+            <span>绩效管理</span>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current" id="currentProjectName">355目标</span>
+          </div>
+        </div>
+        <div class="header-right">
+          <span class="header-time" id="currentTime">2026/06/15 17:16</span>
+          <button class="btn btn-primary" onclick="openUpdateModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="plus" class="lucide lucide-plus"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            更新数据
+          </button>
+        </div>
+      </header>
+
+      <!-- 页面内容 -->
+      <div class="page-content" id="pageContent">
+        <!-- 导航首页 -->
+        <div class="home-page" id="homePage">
+          <div class="home-header">
+            <div class="home-title-section">
+              <h1 class="home-title">整装市场中心绩效总览</h1>
+              <p class="home-subtitle" id="currentDate">2026年6月15日星期一 · 第2季度</p>
+            </div>
+          </div>
+          
+          <!-- 季度/年度切换 -->
+          <div class="period-tabs">
+            <button class="period-tab active" data-period="quarter" onclick="switchPeriod(&#39;quarter&#39;)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar-range" class="lucide lucide-calendar-range"><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M16 2v4"></path><path d="M3 10h18"></path><path d="M8 2v4"></path><path d="M17 14h-6"></path><path d="M13 18H7"></path><path d="M7 14h.01"></path><path d="M17 18h.01"></path></svg>
+              <span>当季完成情况</span>
+            </button>
+            <button class="period-tab" data-period="year" onclick="switchPeriod(&#39;year&#39;)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="calendar" class="lucide lucide-calendar"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg>
+              <span>年度累计完成</span>
+            </button>
+          </div>
+          
+          <!-- 季度数据 -->
+          <div class="period-content active" id="quarterContent">
+            <div class="period-summary">
+              <div class="period-stat">
+                <span class="period-stat-value" id="quarterTotal">210,091</span>
+                <span class="period-stat-label">季度总目标</span>
+              </div>
+              <div class="period-stat">
+                <span class="period-stat-value text-success" id="quarterCompleted">121,339</span>
+                <span class="period-stat-label">已完成</span>
+              </div>
+              <div class="period-stat">
+                <span class="period-stat-value" id="quarterRate">57.8%</span>
+                <span class="period-stat-label">完成率</span>
+              </div>
+              <div class="period-stat">
+                <span class="period-stat-value text-warning" id="quarterRemaining">88,752</span>
+                <span class="period-stat-label">剩余目标</span>
+              </div>
+            </div>
+            <div class="region-grid" id="quarterRegionGrid">
+      <div class="region-item">
+        <span class="region-name">华东</span>
+        <span class="region-value highlight">16,357</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">华南</span>
+        <span class="region-value highlight">16,096</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">粤西</span>
+        <span class="region-value highlight">13,051</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">西南</span>
+        <span class="region-value highlight">11,934</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">华北</span>
+        <span class="region-value highlight">10,713</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">鲁豫晋</span>
+        <span class="region-value highlight">10,459</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">粤东</span>
+        <span class="region-value highlight">9,625</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">赣皖</span>
+        <span class="region-value highlight">9,320</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">湘鄂</span>
+        <span class="region-value highlight">9,192</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">西北</span>
+        <span class="region-value highlight">8,463</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">东北</span>
+        <span class="region-value highlight">6,129</span>
+      </div>
+    </div>
+          </div>
+          
+          <!-- 年度数据 -->
+          <div class="period-content" id="yearContent" style="display: none;">
+            <div class="period-summary">
+              <div class="period-stat">
+                <span class="period-stat-value" id="yearTotal">210,091</span>
+                <span class="period-stat-label">年度总目标</span>
+              </div>
+              <div class="period-stat">
+                <span class="period-stat-value text-success" id="yearCompleted">121,339</span>
+                <span class="period-stat-label">已完成</span>
+              </div>
+              <div class="period-stat">
+                <span class="period-stat-value" id="yearRate">57.8%</span>
+                <span class="period-stat-label">完成率</span>
+              </div>
+              <div class="period-stat">
+                <span class="period-stat-value text-warning" id="yearRemaining">88,752</span>
+                <span class="period-stat-label">剩余目标</span>
+              </div>
+            </div>
+            <div class="region-grid" id="yearRegionGrid">
+      <div class="region-item">
+        <span class="region-name">华东</span>
+        <span class="region-value highlight">16,357</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">华南</span>
+        <span class="region-value highlight">16,096</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">粤西</span>
+        <span class="region-value highlight">13,051</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">西南</span>
+        <span class="region-value highlight">11,934</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">华北</span>
+        <span class="region-value highlight">10,713</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">鲁豫晋</span>
+        <span class="region-value highlight">10,459</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">粤东</span>
+        <span class="region-value highlight">9,625</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">赣皖</span>
+        <span class="region-value highlight">9,320</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">湘鄂</span>
+        <span class="region-value highlight">9,192</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">西北</span>
+        <span class="region-value highlight">8,463</span>
+      </div>
+    
+      <div class="region-item">
+        <span class="region-name">东北</span>
+        <span class="region-value highlight">6,129</span>
+      </div>
+    </div>
+          </div>
+          
+          <div class="projects-grid" id="projectsGrid">
+      <div class="project-card theme-blue" onclick="showProjectDetail(&#39;P001&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="target" class="lucide lucide-target"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">355目标</div>
+        <div class="project-card-desc">355线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 61.11%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">61.11%</span>
+          </div>
+          <div>
+            <span class="label">57,851 / 94,670</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-green" onclick="showProjectDetail(&#39;P002&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="award" class="lucide lucide-award"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">N50目标</div>
+        <div class="project-card-desc">N50线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 60.47%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">60.47%</span>
+          </div>
+          <div>
+            <span class="label">21,273 / 35,177</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-orange" onclick="showProjectDetail(&#39;P003&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="map" class="lucide lucide-map"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" x2="9" y1="3" y2="18"></line><line x1="15" x2="15" y1="6" y2="21"></line></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">差距城市目标</div>
+        <div class="project-card-desc">差距线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 48.79%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">48.79%</span>
+          </div>
+          <div>
+            <span class="label">27,519 / 56,404</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-red" onclick="showProjectDetail(&#39;P004&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="zap" class="lucide lucide-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">高质抢量活动</div>
+        <div class="project-card-desc">活动线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 73.44%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">73.44%</span>
+          </div>
+          <div>
+            <span class="label">401 / 546</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-purple" onclick="showProjectDetail(&#39;P005&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="building" class="lucide lucide-building"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">头部开拓</div>
+        <div class="project-card-desc">头部线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 69.05%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">69.05%</span>
+          </div>
+          <div>
+            <span class="label">232 / 336</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-cyan" onclick="showProjectDetail(&#39;P006&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">头部网点开拓</div>
+        <div class="project-card-desc">网点线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 61.19%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">61.19%</span>
+          </div>
+          <div>
+            <span class="label">689 / 1,126</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-blue" onclick="showProjectDetail(&#39;P007&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="users" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">星链设计师活动</div>
+        <div class="project-card-desc">设计线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 57.47%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">57.47%</span>
+          </div>
+          <div>
+            <span class="label">400 / 696</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-green" onclick="showProjectDetail(&#39;P008&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="package" class="lucide lucide-package"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">新品任务</div>
+        <div class="project-card-desc">新品线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 61.58%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">61.58%</span>
+          </div>
+          <div>
+            <span class="label">12,648 / 20,539</span>
+          </div>
+        </div>
+      </div>
+    
+      <div class="project-card theme-orange" onclick="showProjectDetail(&#39;P009&#39;)">
+        <div class="project-card-header">
+          <div class="project-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="globe" class="lucide lucide-globe"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+          </div>
+          <span class="project-card-badge danger">危险</span>
+        </div>
+        <div class="project-card-name">总对总活动</div>
+        <div class="project-card-desc">总对总线</div>
+        <div class="project-card-progress">
+          <div class="project-card-progress-bar">
+            <div class="project-card-progress-fill danger" style="width: 54.61%;"></div>
+          </div>
+        </div>
+        <div class="project-card-stats">
+          <div>
+            <span class="label">完成进度：</span>
+            <span class="rate">54.61%</span>
+          </div>
+          <div>
+            <span class="label">326 / 597</span>
+          </div>
+        </div>
+      </div>
+    </div>
+        </div>
+
+        <!-- 详情页（默认隐藏） -->
+        <div class="detail-page" id="detailPage" style="display: none;">
+          <!-- 概览卡片 -->
+          <div class="overview-cards" id="overviewCards"></div>
+
+          <!-- 筛选栏 -->
+          <div class="filter-bar">
+            <div class="filter-group">
+              <span class="filter-label">月份：</span>
+              <select class="filter-select" id="monthFilter" onchange="handleMonthChange(this.value)">
+                <option value="3">3月（当前）</option>
+                <option value="1">1月</option>
+                <option value="2">2月</option>
+                <option value="4">4月</option>
+                <option value="5">5月</option>
+                <option value="6">6月</option>
+                <option value="7">7月</option>
+                <option value="8">8月</option>
+                <option value="9">9月</option>
+                <option value="10">10月</option>
+                <option value="11">11月</option>
+                <option value="12">12月</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <span class="filter-label">区域：</span>
+              <select class="filter-select" id="regionFilter" onchange="handleRegionFilter(this.value)"><option value="all">全部区域</option><option value="R01">华东运营中心</option><option value="R02">华南运营中心</option><option value="R03">华北运营中心</option><option value="R04">西南运营中心</option><option value="R05">湘鄂运营中心</option><option value="R06">粤东运营中心</option><option value="R07">粤西运营中心</option><option value="R08">西北运营中心</option><option value="R09">东北运营中心</option><option value="R10">赣皖运营中心</option><option value="R11">鲁豫晋运营中心</option></select>
+            </div>
+
+            <div class="filter-status">
+              <span class="status-tag active" data-status="all" onclick="handleStatusFilter(&#39;all&#39;)">全部</span>
+              <span class="status-tag" data-status="normal" onclick="handleStatusFilter(&#39;normal&#39;)">正常</span>
+              <span class="status-tag warning" data-status="warning" onclick="handleStatusFilter(&#39;warning&#39;)">预警</span>
+              <span class="status-tag danger" data-status="danger" onclick="handleStatusFilter(&#39;danger&#39;)">危险</span>
+            </div>
+
+            <div class="filter-actions">
+              <button class="btn btn-secondary" onclick="showHomePage()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="home" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                返回首页
+              </button>
+              <button class="btn btn-secondary" onclick="refreshData()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="refresh-cw" class="lucide lucide-refresh-cw"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>
+                刷新
+              </button>
+            </div>
+          </div>
+
+          <!-- 数据表格区域 -->
+          <div id="dataTables"></div>
+
+          <!-- 图表区域 -->
+          <div class="charts-grid" id="chartsGrid">
+            <div class="chart-card">
+              <div class="chart-title">区域完成率对比</div>
+              <div class="chart-container">
+                <canvas id="regionChart"></canvas>
+              </div>
+            </div>
+            <div class="chart-card">
+              <div class="chart-title">状态分布</div>
+              <div class="chart-container">
+                <canvas id="statusChart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 更新数据模态框 -->
+  <div class="modal-overlay" id="updateModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">更新绩效数据</h3>
+        <div class="modal-close" onclick="closeUpdateModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" class="lucide lucide-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">选择区域</label>
+          <select class="form-input" id="updateRegion"><option value="">请选择区域</option><option value="R01">华东运营中心</option><option value="R02">华南运营中心</option><option value="R03">华北运营中心</option><option value="R04">西南运营中心</option><option value="R05">湘鄂运营中心</option><option value="R06">粤东运营中心</option><option value="R07">粤西运营中心</option><option value="R08">西北运营中心</option><option value="R09">东北运营中心</option><option value="R10">赣皖运营中心</option><option value="R11">鲁豫晋运营中心</option></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">选择线组</label>
+          <select class="form-input" id="updateTeam">
+            <option value="">请先选择区域</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">目标值</label>
+            <input type="number" class="form-input" id="updateTarget" placeholder="输入目标值">
+          </div>
+          <div class="form-group">
+            <label class="form-label">完成值</label>
+            <input type="number" class="form-input" id="updateCompleted" placeholder="输入完成值">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">计算完成率</label>
+          <div class="cell-value large" id="calculatedRate">-- %</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeUpdateModal()">取消</button>
+        <button class="btn btn-primary" onclick="saveUpdate()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 预警详情模态框 -->
+  <div class="modal-overlay" id="warningModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">预警详情</h3>
+        <div class="modal-close" onclick="closeWarningModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x" class="lucide lucide-x"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+        </div>
+      </div>
+      <div class="modal-body" id="warningDetailBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeWarningModal()">关闭</button>
+        <button class="btn btn-primary" onclick="markWarningHandled()">标记已处理</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="./整装市场中心绩效管理系统_files/chart.umd.min.js.下载"></script>
+  <script src="./整装市场中心绩效管理系统_files/lucide.min.js.下载"></script>
+  <script src="./整装市场中心绩效管理系统_files/mock-data.js.下载"></script>
+  <script src="./整装市场中心绩效管理系统_files/app.js.下载"></script>
+
+
+<div id="autoglm-main-content" class="autoglm-main-content" data-version="0.1.4"><template shadowrootmode="open"><style data-rc-order="prependQueue" data-css-hash="c2pd8u" data-token-hash="1g3r1lh">.anticon{display:inline-flex;align-items:center;color:inherit;font-style:normal;line-height:0;text-align:center;text-transform:none;vertical-align:-0.125em;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}.anticon >*{line-height:1;}.anticon svg{display:inline-block;}.anticon .anticon .anticon-icon{display:block;}</style><link rel="stylesheet" href="chrome-extension://ljlnbmmmgnflklegiafalpieckpihffn/antd.min.css"><link rel="stylesheet" href="chrome-extension://ljlnbmmmgnflklegiafalpieckpihffn/static/css/content.css"><link rel="stylesheet" href="chrome-extension://ljlnbmmmgnflklegiafalpieckpihffn/selected.css"><div id="autoglm-workflow-container" class="autoglm-workflow-container"><div class="workflow-inner-shadow"></div></div></template></div></body></html>

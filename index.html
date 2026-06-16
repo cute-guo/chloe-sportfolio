@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chloe's Portfolio</title>
+    <!-- 引入 Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Lucide 图标 CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* 自定义关键帧与特殊动效 */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: 200%;
+            animation: marquee 20s linear infinite;
+        }
+        
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        
+        /* 猫眼晶透流动效果 */
+        @keyframes cateye-sweep {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .bg-cat-eye {
+            background: linear-gradient(135deg, #c40055 0%, #FF1476 40%, #ffbade 50%, #FF1476 60%, #c40055 100%);
+            background-size: 200% 200%;
+            animation: cateye-sweep 8s ease infinite;
+            box-shadow: 0 4px 15px rgba(255, 20, 118, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .bg-cat-eye:hover {
+            box-shadow: 0 8px 25px rgba(255, 20, 118, 0.5);
+            transform: translateY(-2px);
+        }
+        .text-cat-eye {
+            background: linear-gradient(135deg, #FF1476 0%, #ffbade 40%, #FF1476 80%);
+            background-size: 200% 200%;
+            animation: cateye-sweep 8s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* 亮晶晶闪烁效果 */
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; transform: scale(0.8) rotate(0deg); text-shadow: 0 0 0px rgba(255, 20, 118, 0); }
+            50% { opacity: 1; transform: scale(1.2) rotate(15deg); text-shadow: 0 0 12px rgba(255, 20, 118, 0.8); }
+        }
+        .animate-twinkle {
+            display: inline-block;
+            animation: twinkle 2s ease-in-out infinite;
+            color: #FF1476;
+        }
+
+        /* 柔和的光斑流动 */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 15s infinite alternate ease-in-out;
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+
+        /* 钻石感 - 悬浮与自转 */
+        @keyframes float-spin {
+            0% { transform: translateY(0) rotate(45deg); }
+            50% { transform: translateY(-15px) rotate(90deg); }
+            100% { transform: translateY(0) rotate(45deg); }
+        }
+        .diamond {
+            width: 12px;
+            height: 12px;
+            border: 1px solid rgba(255, 20, 118, 0.4);
+            animation: float-spin 6s ease-in-out infinite;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(2px);
+        }
+        .diamond::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: #FF1476;
+            box-shadow: 0 0 8px #FF1476;
+        }
+
+        /* ===== 作品展示区自定义样式 ===== */
+
+        /* 筛选按钮 */
+        .filter-bar {
+            position: sticky;
+            top: 64px;
+            z-index: 40;
+            background: rgba(249,249,248,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 100px;
+            background: transparent;
+            color: #737373;
+            font-size: 0.8rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+        .filter-btn:hover { border-color: #a3a3a3; color: #171717; }
+        .filter-btn.active {
+            background: #FF1476;
+            border-color: #FF1476;
+            color: white;
+            font-weight: 600;
+        }
+
+        /* 分类区块 */
+        .portfolio-section { transition: opacity 0.4s; }
+        .portfolio-section.hidden-section { display: none; }
+
+        /* PDF 横向卡片 */
+        .pdf-card {
+            display: flex;
+            align-items: stretch;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.4s;
+            cursor: pointer;
+        }
+        .pdf-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .pdf-cover {
+            flex-shrink: 0;
+            width: 280px;
+            min-height: 200px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        .pdf-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .pdf-card:hover .pdf-cover img { transform: scale(1.04); }
+        .pdf-info {
+            flex: 1;
+            padding: 1.75rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .pdf-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #FF1476;
+            font-weight: 700;
+        }
+        .pdf-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.35;
+            color: #171717;
+        }
+        .pdf-desc {
+            font-size: 0.85rem;
+            color: #737373;
+            line-height: 1.65;
+            font-weight: 300;
+        }
+        .pdf-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.4rem;
+            padding: 0.45rem 1.1rem;
+            border: 1px solid #FF1476;
+            border-radius: 100px;
+            color: #FF1476;
+            font-size: 0.72rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            width: fit-content;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+        .pdf-download:hover {
+            background: #FF1476;
+            color: white;
+        }
+
+        /* 图片网格 - 统一长方形 */
+        .img-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .img-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            aspect-ratio: 16 / 10;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background: #f5f5f5;
+        }
+        .img-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+            display: block;
+        }
+        .img-card:hover img { transform: scale(1.05); }
+        .img-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 1rem 0.6rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.65));
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+            letter-spacing: 0.02em;
+        }
+        .img-card:hover .img-label { opacity: 1; }
+
+        /* Digital Systems iframe 卡片 */
+        .ds-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .ds-iframe-wrap {
+            width: 100%;
+            height: 480px;
+            background: #111;
+            position: relative;
+            overflow: hidden;
+        }
+        .ds-iframe-wrap iframe {
+            width: 130%;
+            height: 100%;
+            border: none;
+            transform: scale(0.77);
+            transform-origin: top left;
+        }
+        .ds-info {
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #f5f5f5;
+        }
+        .ds-title { font-weight: 700; font-size: 1rem; color: #171717; }
+        .ds-desc { color: #a3a3a3; font-size: 0.78rem; margin-top: 0.2rem; }
+        .ds-link {
+            padding: 0.45rem 1.3rem;
+            background: #FF1476;
+            color: white;
+            border-radius: 100px;
+            font-size: 0.72rem;
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+        .ds-link:hover { opacity: 0.85; }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0,0,0,0.94);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 92vw;
+            max-height: 92vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            transition: opacity 0.3s;
+            z-index: 1001;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+        }
+        .lightbox-close:hover { opacity: 0.6; background: rgba(255,255,255,0.2); }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.5rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            font-family: inherit;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            opacity: 0.6;
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        .lightbox-nav:hover { opacity: 1; background: rgba(255,255,255,0.2); }
+        .lightbox-prev { left: 1.5rem; }
+        .lightbox-next { right: 1.5rem; }
+        .lightbox-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+        }
+
+        /* 响应式 */
+        @media (max-width: 1024px) {
+            .pdf-card { flex-direction: column; }
+            .pdf-cover { width: 100%; height: 200px; }
+        }
+        @media (max-width: 768px) {
+            .img-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-[#F9F9F8] text-neutral-900 font-sans selection:bg-[#FF1476] selection:text-white overflow-x-hidden">
+
+    <!-- 导航栏 -->
+    <nav class="fixed w-full bg-[#F9F9F8]/90 backdrop-blur-md z-50 border-b border-neutral-200">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tighter">郭筱芊<span class="text-[#FF1476]">（</span>Chloe<span class="text-[#FF1476]">）</span></div>
+            
+            <!-- 桌面端菜单 -->
+            <div class="hidden md:flex space-x-10 text-sm font-medium tracking-wide">
+                <a href="#work" class="hover:text-[#FF1476] transition-colors">WORKS</a>
+                <a href="#about" class="hover:text-[#FF1476] transition-colors">ABOUT</a>
+                <a href="#contact" class="hover:text-[#FF1476] transition-colors">CONTACT</a>
+            </div>
+
+            <!-- 移动端菜单按钮 -->
+            <button id="menu-btn" class="md:hidden p-2 focus:outline-none" aria-label="Toggle Menu">
+                <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端隐藏抽屉菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#F9F9F8] border-b border-neutral-200 px-6 py-4 flex flex-col space-y-4 text-sm font-medium">
+            <a href="#work" class="hover:text-[#FF1476] transition-colors py-1">WORKS</a>
+            <a href="#about" class="hover:text-[#FF1476] transition-colors py-1">ABOUT</a>
+            <a href="#contact" class="hover:text-[#FF1476] transition-colors py-1">CONTACT</a>
+        </div>
+    </nav>
+
+    <main>
+        
+        <!-- Hero 模块（原稿不动） -->
+        <section class="pt-24 pb-10 md:pt-32 md:pb-16 flex flex-col justify-center min-h-[85vh] relative overflow-hidden">
+            
+            <!-- 飘逸感背景：极光般的模糊光斑流动 -->
+            <div class="absolute top-[-10%] right-[-5%] w-[40vw] h-[40vw] bg-[#FF1476]/10 rounded-full mix-blend-multiply filter blur-[80px] animate-blob z-0 pointer-events-none"></div>
+            <div class="absolute bottom-[-10%] left-[-10%] w-[30vw] h-[30vw] bg-[#ffbade]/20 rounded-full mix-blend-multiply filter blur-[80px] animate-blob animation-delay-2000 z-0 pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto px-6 w-full relative flex flex-col md:flex-row items-center justify-between">
+                
+                <!-- 左侧文字区域 -->
+                <div class="md:w-3/5 relative z-10">
+                    <!-- 钻石元素点缀 -->
+                    <div class="diamond top-0 left-[-20px] opacity-60"></div>
+                    <div class="diamond bottom-[20%] right-[10%] opacity-40 animation-delay-2000 scale-75"></div>
+
+                    <div class="fade-up">
+                        <h1 class="text-6xl md:text-[6.5rem] font-bold tracking-tighter leading-[1.05] mb-6 relative">
+                            Growth Driven.<br />
+                            <span class="font-serif italic font-light text-cat-eye tracking-normal pr-4">Creativity</span> 
+                            Powered.
+                        </h1>
+                    </div>
+                    
+                    <div class="fade-up delay-100 max-w-xl">
+                        <p class="text-lg md:text-2xl text-neutral-600 leading-relaxed mb-10 font-light">
+                            你好！我是郭筱芊，7年营销实战经验市场人，擅长策略落地与数字化系统搭建，用创意破局，用系统锁增长。
+                        </p>
+                    </div>
+
+                    <div class="fade-up delay-200 flex flex-wrap gap-4">
+                        <a href="#work" class="bg-cat-eye text-white px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                            查看案例 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="mailto:your@email.com" class="border border-neutral-300 text-neutral-700 px-8 py-4 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2 hover:border-[#FF1476] hover:text-[#FF1476]">
+                            <i data-lucide="mail" class="w-4 h-4"></i> 联系我
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 右侧相片：报纸感 + 宝丽来 + 胶带贴片 -->
+                <div class="fade-up delay-300 w-full md:w-2/5 mt-16 md:mt-0 flex justify-center md:justify-end relative">
+                    <div class="relative transform rotate-2 hover:rotate-0 transition-transform duration-700 cursor-pointer group z-10">
+                        
+                        <!-- 顶部的半透明磨砂胶带 (Tape) -->
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 bg-white/40 backdrop-blur-md border border-white/30 shadow-sm transform -rotate-2 z-30"></div>
+                        
+                        <!-- 宝丽来相框 (Polaroid Frame) -->
+                        <div class="bg-white p-3 pb-14 shadow-[0_25px_50px_rgba(0,0,0,0.1)] border border-neutral-200 relative z-20">
+                            <div class="relative overflow-hidden w-64 h-80 md:w-72 md:h-[26rem]">
+                                <!-- 照片：可替换为带有Jinx或个人风格的头像 -->
+                                <img 
+                                  src="assets/个人照片.jpg" 
+                                  alt="My Portrait" 
+                                  class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100 transition-all duration-700"
+                                />
+                                <!-- 悬停时的清透猫眼叠加层 -->
+                                <div class="absolute inset-0 bg-[#FF1476]/10 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-700"></div>
+                            </div>
+                            
+                            <!-- 宝丽来底部的手写体/报纸衬线体文字 -->
+                            <div class="absolute bottom-4 left-0 w-full text-center">
+                                <span class="font-serif italic text-neutral-400 text-sm tracking-widest transform -rotate-2 inline-block">
+                                  Me @ 2026
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- 底部的几何色块错位 -->
+                        <div class="absolute -bottom-4 -left-4 w-32 h-32 border border-[#FF1476]/20 transform -rotate-6 z-0"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 动态跑马灯（原稿不动） -->
+        <div class="w-full overflow-hidden border-y border-neutral-200 bg-white py-4 transform -rotate-1 md:-rotate-2 scale-105 my-10">
+            <div class="animate-marquee text-neutral-900 font-bold text-xl md:text-3xl tracking-widest uppercase opacity-80">
+                <!-- 内容重复两次以实现无缝滚动 -->
+                <div class="flex w-1/2 justify-around items-center">
+                    <span>Integrated Marketing</span> <span class="animate-twinkle text-sm">✨</span>
+                    <span>Channel Strategy</span> <span class="animate-twinkle text-sm">✨</span>
+                    <span>Team Empowerment</span> <span class="animate-twinkle text-sm">✨</span>
+                    <span>Data Automation</span> <span class="animate-twinkle text-sm">✨</span>
+                </div>
+                <div class="flex w-1/2 justify-around items-center">
+                    <span>Integrated Marketing</span> <span class="animate-twinkle text-sm">✨</span>
+                    <span>Channel Strategy</span> <span class="animate-twinkle text-sm">✨</span>
+                    <span>Team Empowerment</span> <span class="animate-twinkle text-sm">✨</span>
+                    <span>Data Automation</span> <span class="animate-twinkle text-sm">✨</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== 作品展示区（重写） ==================== -->
+        <section id="work" class="py-20 md:py-28 px-6 max-w-7xl mx-auto">
+
+            <!-- 区块标题 -->
+            <div class="flex justify-between items-end mb-10">
+                <h2 class="text-4xl md:text-6xl font-bold tracking-tight">精选案例</h2>
+                <span class="text-neutral-500 font-serif italic hidden md:block">Selected Works & Growth Track</span>
+            </div>
+
+            <!-- 筛选按钮 -->
+            <div class="filter-bar py-4 mb-12 flex gap-3 flex-wrap">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="marketing">Marketing Programs</button>
+                <button class="filter-btn" data-filter="content">Content &amp; Enablement</button>
+                <button class="filter-btn" data-filter="creative">Creative Assets</button>
+                <button class="filter-btn" data-filter="digital">Digital Systems</button>
+            </div>
+
+            <!-- ========== 01 Marketing Programs ========== -->
+            <div class="portfolio-section mb-24 fade-up" data-section="marketing">
+                <div class="flex items-baseline gap-4 mb-8">
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#FF1476]">01</span>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-tight">Marketing Programs</h3>
+                    <span class="h-[1px] flex-grow bg-neutral-200"></span>
+                    <span class="text-neutral-400 text-xs tracking-widest uppercase hidden md:inline">品牌策划 · 渠道营销 · 活动运营</span>
+                </div>
+
+                <!-- PDFs 优先 -->
+                <div class="space-y-4 mb-8">
+                    <div class="pdf-card" onclick="window.open('assets/Markrting Programs/方案提炼-南京占有率翻倍.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/方案提炼-南京占有率翻倍.png" alt="南京占有率翻倍"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Case Study</span>
+                            <div class="pdf-title">从33%到74% — 南京占有率翻倍实战方法论</div>
+                            <div class="pdf-desc">东鹏×圣都整装渠道合作，1年内将渠道占有率从33%提升至74%，净增41pp。提炼可复用的抢量逆袭方法论。</div>
+                            <a class="pdf-download" href="assets/Markrting Programs/方案提炼-南京占有率翻倍.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Markrting Programs/营销提案-Q2联合直播主题规划.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/营销提案-Q2联合直播主题规划.png" alt="Q2联合直播"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Campaign Plan</span>
+                            <div class="pdf-title">Q2 联合直播主题规划</div>
+                            <div class="pdf-desc">季度联合直播主题策划，涵盖选题方向、排期节奏与内容框架，实现品牌与渠道协同曝光。</div>
+                            <a class="pdf-download" href="assets/Markrting Programs/营销提案-Q2联合直播主题规划.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Markrting Programs/营销提案-渠道媒体账号搭建提案.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/营销提案-渠道媒体账号搭建提案.png" alt="渠道媒体账号"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Channel Strategy</span>
+                            <div class="pdf-title">渠道媒体账号搭建提案</div>
+                            <div class="pdf-desc">从0到1搭建渠道自媒体矩阵，规划账号定位、内容栏目与运营SOP，赋能终端数字化传播。</div>
+                            <a class="pdf-download" href="assets/Markrting Programs/营销提案-渠道媒体账号搭建提案.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Markrting Programs/营销提案-联合投流计划执行方案.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/营销提案-联合投流计划执行方案.png" alt="联合投流"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Paid Media</span>
+                            <div class="pdf-title">联合投流计划执行方案</div>
+                            <div class="pdf-desc">品牌+渠道联合付费投流策略，涵盖预算分配、素材制作、投放节奏与ROI跟踪机制。</div>
+                            <a class="pdf-download" href="assets/Markrting Programs/营销提案-联合投流计划执行方案.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Markrting Programs/营销提案-联合直播操作策略及案例解读.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/营销提案-联合直播操作策略及案例解读.png" alt="联合直播策略"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Playbook</span>
+                            <div class="pdf-title">联合直播操作策略及案例解读</div>
+                            <div class="pdf-desc">系统梳理联合直播全链路操作策略，含实战案例复盘与关键指标拆解，指导终端复制执行。</div>
+                            <a class="pdf-download" href="assets/Markrting Programs/营销提案-联合直播操作策略及案例解读.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 图片 -->
+                <div class="img-grid">
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/active1.png" alt="活动现场 · 1">
+                        <div class="img-label">活动现场 · 1</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/active2.png" alt="活动现场 · 2">
+                        <div class="img-label">活动现场 · 2</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/active3.png" alt="活动现场 · 3">
+                        <div class="img-label">活动现场 · 3</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/active4.png" alt="活动现场 · 4">
+                        <div class="img-label">活动现场 · 4</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/active6.jpg" alt="活动现场 · 6">
+                        <div class="img-label">活动现场 · 6</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/active7.jpg" alt="活动现场 · 7" style="object-position: center top">
+                        <div class="img-label">活动现场 · 7</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Markrting Programs/class1.png" alt="培训课堂" style="object-position: center 40%">
+                        <div class="img-label">培训课堂</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 02 Content & Enablement ========== -->
+            <div class="portfolio-section mb-24 fade-up" data-section="content">
+                <div class="flex items-baseline gap-4 mb-8">
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#FF1476]">02</span>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-tight">Content &amp; Enablement</h3>
+                    <span class="h-[1px] flex-grow bg-neutral-200"></span>
+                    <span class="text-neutral-400 text-xs tracking-widest uppercase hidden md:inline">培训赋能 · 产品知识 · 内容工具</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="pdf-card" onclick="window.open('assets/Content & Enablement/2025梦之家产品介绍.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/2025梦之家产品介绍.png" alt="梦之家产品"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Product Guide</span>
+                            <div class="pdf-title">2025 梦之家产品介绍</div>
+                            <div class="pdf-desc">年度旗舰产品线全景介绍，覆盖产品卖点、应用场景与终端话术，助力销售精准推荐。</div>
+                            <a class="pdf-download" href="assets/Content & Enablement/2025梦之家产品介绍.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Content & Enablement/培训工具-瓷砖核心知识＆终端异议.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/培训工具-瓷砖核心知识＆终端异议.png" alt="瓷砖核心知识"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">Training Tool</span>
+                            <div class="pdf-title">瓷砖核心知识 &amp; 终端异议破解</div>
+                            <div class="pdf-desc">面向装企设计师的产品优势精讲课件，核心卖点梳理+常见异议话术应对，即学即用。</div>
+                            <a class="pdf-download" href="assets/Content & Enablement/培训工具-瓷砖核心知识＆终端异议.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Content & Enablement/培训工具-常见瓷砖问题答疑.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/培训工具-常见瓷砖问题答疑.png" alt="瓷砖问题答疑"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">FAQ Deck</span>
+                            <div class="pdf-title">常见瓷砖问题答疑</div>
+                            <div class="pdf-desc">高频终端疑问Q&A汇编，涵盖产品质量、施工工艺、售后等维度，快速查阅速查手册。</div>
+                            <a class="pdf-download" href="assets/Content & Enablement/培训工具-常见瓷砖问题答疑.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="pdf-card" onclick="window.open('assets/Content & Enablement/培训工具-联合直播入门手册.pdf','_blank')">
+                        <div class="pdf-cover"><img src="assets/pdf-covers/培训工具-联合直播入门手册.png" alt="联合直播手册"></div>
+                        <div class="pdf-info">
+                            <span class="pdf-tag">SOP Manual</span>
+                            <div class="pdf-title">联合直播入门手册</div>
+                            <div class="pdf-desc">装企联合直播从筹备到复盘的全流程SOP，含脚本模板、道具清单与数据复盘表。</div>
+                            <a class="pdf-download" href="assets/Content & Enablement/培训工具-联合直播入门手册.pdf" target="_blank" onclick="event.stopPropagation()">↓ Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 03 Creative Assets ========== -->
+            <div class="portfolio-section mb-24 fade-up" data-section="creative">
+                <div class="flex items-baseline gap-4 mb-8">
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#FF1476]">03</span>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-tight">Creative Assets</h3>
+                    <span class="h-[1px] flex-grow bg-neutral-200"></span>
+                    <span class="text-neutral-400 text-xs tracking-widest uppercase hidden md:inline">KV主视觉 · 礼品设计 · 约稿插画 · 品牌IP</span>
+                </div>
+
+                <div class="img-grid">
+                    <!-- KV -->
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/kv1.jpg" alt="KV主视觉 · 1">
+                        <div class="img-label">KV主视觉 · 1</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/kv2.png" alt="KV主视觉 · 2">
+                        <div class="img-label">KV主视觉 · 2</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/kv3.png" alt="KV主视觉 · 3">
+                        <div class="img-label">KV主视觉 · 3</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/kv4.jpg" alt="KV主视觉 · 4">
+                        <div class="img-label">KV主视觉 · 4</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/kv5.png" alt="KV主视觉 · 5">
+                        <div class="img-label">KV主视觉 · 5</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/kv6.png" alt="KV主视觉 · 6">
+                        <div class="img-label">KV主视觉 · 6</div>
+                    </div>
+                    <!-- Gifts -->
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/gift1.jpg" alt="定制礼品 · 1">
+                        <div class="img-label">定制礼品 · 1</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/gift2.jpg" alt="定制礼品 · 2">
+                        <div class="img-label">定制礼品 · 2</div>
+                    </div>
+                    <!-- Illustrations -->
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/废土蒸汽朋克整体细化.jpeg" alt="约稿 · 废土蒸汽朋克">
+                        <div class="img-label">约稿 · 废土蒸汽朋克</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/饥荒game插画1.png" alt="约稿 · 饥荒Game · 1">
+                        <div class="img-label">约稿 · 饥荒Game · 1</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/饥荒game插画2.jpeg" alt="约稿 · 饥荒Game · 2">
+                        <div class="img-label">约稿 · 饥荒Game · 2</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/饥荒game插画3.jpeg" alt="约稿 · 饥荒Game · 3">
+                        <div class="img-label">约稿 · 饥荒Game · 3</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/饥荒game插画4.jpeg" alt="约稿 · 饥荒Game · 4">
+                        <div class="img-label">约稿 · 饥荒Game · 4</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/饥荒game插画5.jpeg" alt="约稿 · 饥荒Game · 5">
+                        <div class="img-label">约稿 · 饥荒Game · 5</div>
+                    </div>
+                    <!-- Character art -->
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/人物八重子.png" alt="约稿 · 人物 · 八重子">
+                        <div class="img-label">约稿 · 人物 · 八重子</div>
+                    </div>
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/人物雷电将军.png" alt="约稿 · 人物 · 雷电将军">
+                        <div class="img-label">约稿 · 人物 · 雷电将军</div>
+                    </div>
+                    <!-- Avatar icon -->
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Creative Assets/头像icon.png" alt="品牌IP · 头像">
+                        <div class="img-label">品牌IP · 头像</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== 04 Digital Systems ========== -->
+            <div class="portfolio-section mb-12 fade-up" data-section="digital">
+                <div class="flex items-baseline gap-4 mb-8">
+                    <span class="text-xs font-bold tracking-[0.2em] uppercase text-[#FF1476]">04</span>
+                    <h3 class="text-2xl md:text-3xl font-bold tracking-tight">Digital Systems</h3>
+                    <span class="h-[1px] flex-grow bg-neutral-200"></span>
+                    <span class="text-neutral-400 text-xs tracking-widest uppercase hidden md:inline">Vibe Coding · 数据后台 · 数字化工具</span>
+                </div>
+
+                <!-- 积分管理系统 -->
+                <div class="ds-card mb-6">
+                    <div class="ds-iframe-wrap">
+                        <iframe src="https://cute-guo.github.io/donpengpoints/" loading="lazy"></iframe>
+                    </div>
+                    <div class="ds-info">
+                        <div>
+                            <div class="ds-title">整装渠道积分管理系统</div>
+                            <div class="ds-desc">Vibe Coding · 覆盖11个区域8个类目的渠道积分数据后台</div>
+                        </div>
+                        <a class="ds-link" href="https://cute-guo.github.io/donpengpoints/" target="_blank">Open Project →</a>
+                    </div>
+                </div>
+
+                <!-- SOP图 -->
+                <div class="img-grid" style="max-width:50%;">
+                    <div class="img-card" onclick="openLightbox(this)">
+                        <img src="assets/Digital Systems/SOP-直播模型.png" alt="SOP · 直播模型">
+                        <div class="img-label">SOP · 直播模型</div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="py-32 px-6 bg-neutral-900 text-white selection:bg-[#FF1476]">
+            <div class="max-w-7xl mx-auto">
+                <div class="mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold tracking-tight mb-8">关于我</h2>
+                    <p class="text-neutral-300 text-lg md:text-xl leading-relaxed font-light max-w-4xl">
+                        7年+的创意营销策划经验，深耕家居建材与互联网双赛道；擅长整合营销全案策划与线上线下活动统筹，具备从策略到落地的全链路管理能力。具备优秀的创意输出、数据复盘与资源整合能力，能快速复用多行业营销打法；性格开朗，跨部门沟通协调能力强，积累家居建材及内容营销领域丰富人脉资源。
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16 border-t border-neutral-800 pt-12">
+                    <div>
+                        <h4 class="font-bold text-xl mb-6 text-[#FF1476]">核心能力</h4>
+                        <ul class="text-neutral-400 space-y-4 font-light">
+                            <li>整合营销全案策划</li>
+                            <li>品牌IP策划 &amp; 创意内容输出</li>
+                            <li>渠道营销 &amp; 增长策略</li>
+                            <li>信息流投放 &amp; 素材矩阵运营</li>
+                            <li>活动策划 &amp; 线上线下统筹</li>
+                            <li>数字化营销 &amp; Vibe Coding</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-xl mb-6 text-[#FF1476]">常用工具</h4>
+                        <div class="flex flex-wrap gap-5 items-center">
+                            <!-- PPT -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-[#D04423] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><text x="9" y="16" font-size="7" font-weight="bold" fill="white" font-family="sans-serif">P</text></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">PPT</span>
+                            </div>
+                            <!-- Excel -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-[#217346] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><text x="8.5" y="16" font-size="7" font-weight="bold" fill="white" font-family="sans-serif">X</text></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">Excel</span>
+                            </div>
+                            <!-- Word -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-[#2B579A] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM6 20V4h7v5h5v11H6z"/><text x="9" y="16" font-size="7" font-weight="bold" fill="white" font-family="sans-serif">W</text></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">Word</span>
+                            </div>
+                            <!-- 剪映 -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#1a1a2e] to-[#16213e] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform border border-white/10">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">剪映</span>
+                            </div>
+                            <!-- Notion -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-[#191919] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform border border-white/10">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 4.5l7.5 0 7.5 0v15H4.5z" fill="none" stroke="white" stroke-width="1.5"/><path d="M8 8h8M8 12h8M8 16h5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">Notion</span>
+                            </div>
+                            <!-- GitHub -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-[#24292e] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">GitHub</span>
+                            </div>
+                            <!-- Claude -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-[#D97757] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform overflow-hidden p-2.5">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M12 2l2.5 6h6l-5 4 2 6-5.5-4-5.5 4 2-6-5-4h6z" fill="white"/><circle cx="12" cy="13" r="8" fill="white" opacity="0.15"/></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">Claude</span>
+                            </div>
+                            <!-- Codex -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#7c6aff] to-[#5b4cdb] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform overflow-hidden p-2.5">
+                                    <svg viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full"><path d="M16 2C9.37 2 4 7.37 4 14s5.37 12 12 12 12-5.37 12-12S22.63 2 16 2z" fill="url(#cg)" opacity=".25" rx="10"/><path d="M11 19l-3-3m0 0l3-3m-3 3h10a2 2 0 002-2v-1" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="cg" x1="4" y1="2" x2="28" y2="26"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">Codex</span>
+                            </div>
+                            <!-- Canva -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#7B2FF7] via-[#C02EE7] to-[#00C4CC] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5" fill="none" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="white"/></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">Canva</span>
+                            </div>
+                            <!-- WorkBuddy -->
+                            <div class="flex flex-col items-center gap-2 group">
+                                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-[#FF1476] to-[#D97757] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <svg class="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 16H4V8h16v12z"/><path d="M12 17l-4-4h2.5v-3h3v3H16z"/></svg>
+                                </div>
+                                <span class="text-neutral-500 text-xs">WorkBuddy</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 页脚 -->
+    <footer id="contact" class="py-10 px-6 text-center text-neutral-400 text-sm border-t border-neutral-200">
+        © 2026 郭筱芊（Chloe）
+    </footer>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">×</button>
+        <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation();navLightbox(-1)">‹</button>
+        <img id="lightbox-img" src="" alt="Preview">
+        <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation();navLightbox(1)">›</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. 初始化 Lucide 图标
+            lucide.createIcons();
+
+            // 2. 移动端导航菜单切换
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            menuBtn.addEventListener('click', () => {
+                const isOpen = !mobileMenu.classList.contains('hidden');
+                if (isOpen) {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.setAttribute('data-lucide', 'menu');
+                } else {
+                    mobileMenu.classList.remove('hidden');
+                    menuIcon.setAttribute('data-lucide', 'x');
+                }
+                lucide.createIcons();
+            });
+
+            // 3. 触发 fade-up 入场动画
+            const fadeElements = document.querySelectorAll('.fade-up');
+            setTimeout(() => {
+                fadeElements.forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 100);
+
+            // 4. Intersection Observer for fade-up
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+        });
+
+        // ===== Filter =====
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const sections = document.querySelectorAll('.portfolio-section');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                sections.forEach(sec => {
+                    sec.classList.toggle('hidden-section', filter !== 'all' && sec.dataset.section !== filter);
+                });
+            });
+        });
+
+        // ===== Lightbox =====
+        let allImages = [];
+        let currentIndex = 0;
+
+        function collectImages() {
+            allImages = [];
+            document.querySelectorAll('.img-card img').forEach(img => {
+                allImages.push(img.src);
+            });
+        }
+
+        function openLightbox(el) {
+            const img = el.querySelector('img');
+            if (!img) return;
+            collectImages();
+            currentIndex = allImages.indexOf(img.src);
+            if (currentIndex < 0) currentIndex = 0;
+            showLightboxImage();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showLightboxImage() {
+            const lbImg = document.getElementById('lightbox-img');
+            lbImg.src = allImages[currentIndex];
+            const counter = document.getElementById('lightbox-counter');
+            counter.textContent = (currentIndex + 1) + ' / ' + allImages.length;
+        }
+
+        function navLightbox(dir) {
+            currentIndex = (currentIndex + dir + allImages.length) % allImages.length;
+            showLightboxImage();
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => {
+            const lb = document.getElementById('lightbox');
+            if (!lb.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navLightbox(-1);
+            if (e.key === 'ArrowRight') navLightbox(1);
+        });
+    </script>
+</body>
+</html>
